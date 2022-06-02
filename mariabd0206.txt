@@ -1,0 +1,138 @@
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alunos>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 40
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| exemplo            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use exemplo;
+Database changed
+MariaDB [exemplo]> show tables;
++-------------------+
+| Tables_in_exemplo |
++-------------------+
+| produtos          |
++-------------------+
+1 row in set (0.001 sec)
+
+MariaDB [exemplo]> select * from produtos;
++----+----------+-------+------+
+| id | nome     | valor | qtde |
++----+----------+-------+------+
+|  1 | Lápis    |  1.00 |   10 |
+|  2 | Borracha |  3.00 |   10 |
+|  3 | Caderno  | 15.00 |   10 |
++----+----------+-------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [exemplo]>select AVG(VALOR) from produtos;
++------------+
+| AVG(VALOR) |
++------------+
+|   6.333333 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [exemplo]> select AVG(VALOR) as VALOR_MEDIO from produtos;
++-------------+
+| VALOR_MEDIO |
++-------------+
+|    6.333333 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [exemplo]>select * from produtos;
++----+----------+-------+------+
+| id | nome     | valor | qtde |
++----+----------+-------+------+
+|  1 | Lápis    |  1.00 |   10 |
+|  2 | Borracha |  3.00 |   10 |
+|  3 | Caderno  | 15.00 |   10 |
++----+----------+-------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [exemplo]> select MAX(VALOR) from produtos;
++------------+
+| MAX(VALOR) |
++------------+
+|      15.00 |
++------------+
+1 row in set (0.000 sec)
+
+MariaDB [exemplo]> select * from produtos
+    -> where VALOR = 15;
++----+---------+-------+------+
+| id | nome    | valor | qtde |
++----+---------+-------+------+
+|  3 | Caderno | 15.00 |   10 |
++----+---------+-------+------+
+1 row in set (0.000 sec)
+
+MariaDB [exemplo]> select * from produtos
+    -> Where VALOR = (
+    -> select MAX(VALOR) from produtos);
++----+---------+-------+------+
+| id | nome    | valor | qtde |
++----+---------+-------+------+
+|  3 | Caderno | 15.00 |   10 |
++----+---------+-------+------+
+1 row in set (0.001 sec)
+
+MariaDB [exemplo]> SELECT (VALOR * QTDE) as total from produtos;
++--------+
+| total  |
++--------+
+|  10.00 |
+|  30.00 |
+| 150.00 |
++--------+
+3 rows in set (0.001 sec)
+
+MariaDB [exemplo]>select sum(VALOR * QTDE) as total from produtos;
++--------+
+| total  |
++--------+
+| 190.00 |
++--------+
+1 row in set (0.001 sec)
+
+MariaDB [exemplo]>select * from produtos
+    -> where VALOR between 1 and 10;
++----+----------+-------+------+
+| id | nome     | valor | qtde |
++----+----------+-------+------+
+|  1 | Lápis    |  1.00 |   10 |
+|  2 | Borracha |  3.00 |   10 |
++----+----------+-------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [exemplo]> select * from produtos
+    -> where VALOR in(3,15);
++----+----------+-------+------+
+| id | nome     | valor | qtde |
++----+----------+-------+------+
+|  2 | Borracha |  3.00 |   10 |
+|  3 | Caderno  | 15.00 |   10 |
++----+----------+-------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [exemplo]>
